@@ -91,7 +91,7 @@
     </dependency>
     <dependency>
       <groupId>com.google.code.findbugs</groupId>
-      <artifactId>annotations</artifactId>
+      <artifactId>findbugs-annotations</artifactId>
     </dependency>
     <dependency>
       <groupId>com.arpnetworking.metrics</groupId>

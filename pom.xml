@@ -106,7 +106,7 @@
 
     <!--Dependency versions-->
     <dropwizard.metrics.version>3.1.2</dropwizard.metrics.version>
-    <findbugs.annotations.version>3.0.0</findbugs.annotations.version>
+    <findbugs.annotations.version>3.0.1</findbugs.annotations.version>
     <hamcrest.version>2.0.0.0</hamcrest.version>
     <jsr305.version>3.0.0</jsr305.version>
     <junit.version>4.12</junit.version>
@@ -213,7 +213,7 @@
       </dependency>
       <dependency>
         <groupId>com.google.code.findbugs</groupId>
-        <artifactId>annotations</artifactId>
+        <artifactId>findbugs-annotations</artifactId>
         <version>${findbugs.annotations.version}</version>
       </dependency>
       <!-- Test - General -->
