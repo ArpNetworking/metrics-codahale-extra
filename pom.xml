@@ -19,7 +19,7 @@
     <groupId>com.arpnetworking.build</groupId>
     <artifactId>arpnetworking-parent-pom</artifactId>
     <relativePath />
-    <version>1.0.27</version>
+    <version>1.0.29</version>
   </parent>
 
   <modelVersion>4.0.0</modelVersion>
@@ -28,7 +28,7 @@
   <packaging>pom</packaging>
   <name>Metrics Client Codahale Extra</name>
   <description>Extension to metrics-java-client which adapts the client for use in conjunction or in place of the Codahale metrics library.</description>
-  <version>0.4.4-SNAPSHOT</version>
+  <version>0.7.0-SNAPSHOT</version>
 
   <licenses>
     <license>
@@ -43,9 +43,9 @@
     <developer>
       <id>brandonarp</id>
       <name>Brandon Arp</name>
-      <email>barp@groupon.com</email>
-      <organization>Groupon</organization>
-      <organizationUrl>http://www.groupon.com</organizationUrl>
+      <email>brandon.arp@inscopemetrics.com</email>
+      <organization>Inscope Metrics</organization>
+      <organizationUrl>http://www.inscopemetrics.com</organizationUrl>
       <roles>
         <role>developer</role>
       </roles>
@@ -53,9 +53,9 @@
     <developer>
       <id>villekoskela</id>
       <name>Ville Koskela</name>
-      <email>vkoskela@groupon.com</email>
-      <organization>Groupon</organization>
-      <organizationUrl>http://www.groupon.com</organizationUrl>
+      <email>vkoskela@inscopemetrics.com</email>
+      <organization>Inscope Metrics</organization>
+      <organizationUrl>http://www.inscopemetrics.com</organizationUrl>
       <roles>
         <role>developer</role>
       </roles>
@@ -110,7 +110,8 @@
     <hamcrest.version>2.0.0.0</hamcrest.version>
     <jsr305.version>3.0.0</jsr305.version>
     <junit.version>4.12</junit.version>
-    <metrics.client.version>0.4.2</metrics.client.version>
+    <metrics.client.version>0.7.0</metrics.client.version>
+    <metrics.filesink.extra.version>0.7.0</metrics.filesink.extra.version>
     <mockito.version>1.10.19</mockito.version>
     <slf4j.version>1.7.10</slf4j.version>
 
@@ -205,6 +206,11 @@
         <groupId>com.arpnetworking.metrics</groupId>
         <artifactId>metrics-client</artifactId>
         <version>${metrics.client.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.arpnetworking.metrics.extras</groupId>
+        <artifactId>file-sink-extra</artifactId>
+        <version>${metrics.filesink.extra.version}</version>
       </dependency>
       <dependency>
         <groupId>com.google.code.findbugs</groupId>

@@ -17,7 +17,7 @@ package com.arpnetworking.metrics.codahale;
 
 import com.arpnetworking.metrics.Metrics;
 import com.arpnetworking.metrics.MetricsFactory;
-import com.arpnetworking.metrics.impl.TsdLogSink;
+import com.arpnetworking.metrics.impl.FileSink;
 import com.arpnetworking.metrics.impl.TsdMetricsFactory;
 import com.codahale.metrics.Clock;
 import com.codahale.metrics.ExponentiallyDecayingReservoir;
@@ -59,7 +59,7 @@ public class MetricRegistry extends com.codahale.metrics.MetricRegistry {
                         .setClusterName(System.getProperty("METRICS_CODAHALE_EXTRA_CLUSTER", "CodahaleCluster"))
                         .setServiceName(System.getProperty("METRICS_CODAHALE_EXTRA_SERVICE", "CodahaleService"))
                         .setSinks(Collections.singletonList(
-                                new TsdLogSink.Builder()
+                                new FileSink.Builder()
                                         .setDirectory(
                                                 new File(System.getProperty("METRICS_CODAHALE_EXTRA_DIRECTORY", "/tmp")))
                                         .build()))
@@ -87,36 +87,24 @@ public class MetricRegistry extends com.codahale.metrics.MetricRegistry {
                 TimeUnit.MILLISECONDS);
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public Timer timer(final String name) {
         final Timer timer = getOrCreate(name, _timerBuilder);
         return timer;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public Counter counter(final String name) {
         final Counter counter = getOrCreate(name, _counterBuilder);
         return counter;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public Histogram histogram(final String name) {
         final Histogram histogram = getOrCreate(name, _histogramBuilder);
         return histogram;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public Meter meter(final String name) {
         final Meter meter = getOrCreate(name, _meterBuilder);
@@ -191,9 +179,6 @@ public class MetricRegistry extends com.codahale.metrics.MetricRegistry {
             _registry = registry;
         }
 
-        /**
-         * {@inheritDoc}
-         */
         @Override
         public void run() {
             final Metrics metrics = _metricsRef.get();

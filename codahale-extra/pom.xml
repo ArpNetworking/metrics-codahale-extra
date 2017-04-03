@@ -18,7 +18,7 @@
   <parent>
     <groupId>com.arpnetworking.metrics.extras</groupId>
     <artifactId>codahale-extra-parent</artifactId>
-    <version>0.4.4-SNAPSHOT</version>
+    <version>0.7.0-SNAPSHOT</version>
   </parent>
 
   <modelVersion>4.0.0</modelVersion>
@@ -96,6 +96,10 @@
     <dependency>
       <groupId>com.arpnetworking.metrics</groupId>
       <artifactId>metrics-client</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>com.arpnetworking.metrics.extras</groupId>
+      <artifactId>file-sink-extra</artifactId>
     </dependency>
     <!-- Test - General -->
     <dependency>

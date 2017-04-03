@@ -16,6 +16,7 @@
 package com.arpnetworking.metrics.codahale;
 
 import com.arpnetworking.metrics.Metrics;
+import com.arpnetworking.metrics.Units;
 import com.codahale.metrics.Clock;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
@@ -43,12 +44,9 @@ public class Timer extends com.codahale.metrics.Timer {
         _clock = clock;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public void update(final long duration, final TimeUnit unit) {
-        _lock.readLocked(metrics -> metrics.setTimer(_name, duration, unit));
+        _lock.readLocked(metrics -> metrics.setTimer(_name, duration, Units.from(unit)));
         super.update(duration, unit);
     }
 

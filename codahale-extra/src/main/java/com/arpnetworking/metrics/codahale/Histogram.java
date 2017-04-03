@@ -39,9 +39,6 @@ public class Histogram extends com.codahale.metrics.Histogram {
         _lock = lock;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public void update(final long value) {
         _lock.readLocked(metrics -> {
