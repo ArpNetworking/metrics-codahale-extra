@@ -36,9 +36,6 @@ public class Counter extends com.codahale.metrics.Counter {
         _lock = lock;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public void dec(final long n) {
         _lock.readLocked(metrics -> {
@@ -48,9 +45,6 @@ public class Counter extends com.codahale.metrics.Counter {
         super.dec(n);
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public void inc(final long n) {
         _lock.readLocked(metrics -> {

@@ -36,9 +36,6 @@ public class Meter extends com.codahale.metrics.Meter {
         _lock = lock;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public void mark(final long n) {
         super.mark(n);
