@@ -17,6 +17,7 @@ package com.arpnetworking.metrics.codahale;
 
 import com.arpnetworking.metrics.Metrics;
 import com.codahale.metrics.ExponentiallyDecayingReservoir;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;
@@ -33,9 +34,19 @@ import java.util.function.Consumer;
  * @author Brandon Arp (barp at groupon dot com)
  */
 public class HistogramTest {
+
+    private AutoCloseable _mocks;
+
     @Before
     public void setUp() {
-        MockitoAnnotations.initMocks(this);
+        _mocks = MockitoAnnotations.openMocks(this);
+    }
+
+    @After
+    public void tearDown() throws Exception {
+        if (_mocks != null) {
+            _mocks.close();
+        }
     }
 
     @Test
@@ -43,7 +54,7 @@ public class HistogramTest {
         final Histogram histogram = new Histogram("foo", _lock, new ExponentiallyDecayingReservoir());
         final int n = 55;
         histogram.update(n);
-        Mockito.verifyZeroInteractions(_metrics);
+        Mockito.verifyNoInteractions(_metrics);
         Mockito.verify(_lock).readLocked(_delegateCaptor.capture());
         _delegateCaptor.getValue().accept(_metrics);
         Mockito.verify(_metrics).incrementCounter("foo", n);
@@ -54,7 +65,7 @@ public class HistogramTest {
         final Histogram histogram = new Histogram("foo", _lock, new ExponentiallyDecayingReservoir());
         final long n = 58195;
         histogram.update(n);
-        Mockito.verifyZeroInteractions(_metrics);
+        Mockito.verifyNoInteractions(_metrics);
         Mockito.verify(_lock).readLocked(_delegateCaptor.capture());
         _delegateCaptor.getValue().accept(_metrics);
         Mockito.verify(_metrics).incrementCounter("foo", n);

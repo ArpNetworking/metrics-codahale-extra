@@ -25,6 +25,10 @@
   <artifactId>codahale-replace</artifactId>
   <packaging>jar</packaging>
 
+  <properties>
+    <skipCheckstyle>true</skipCheckstyle>
+  </properties>
+
   <build>
     <plugins>
       <plugin>
@@ -50,8 +54,8 @@
         <artifactId>maven-surefire-plugin</artifactId>
       </plugin>
       <plugin>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>findbugs-maven-plugin</artifactId>
+        <groupId>com.github.spotbugs</groupId>
+        <artifactId>spotbugs-maven-plugin</artifactId>
       </plugin>
       <plugin>
         <groupId>org.jacoco</groupId>
@@ -145,6 +149,19 @@
     <dependency>
       <groupId>io.dropwizard.metrics</groupId>
       <artifactId>metrics-core</artifactId>
+    </dependency>
+
+    <!-- These are actually shaded in the jar, but this is required
+     to satisfy the deps check-->
+    <dependency>
+      <groupId>com.arpnetworking.metrics</groupId>
+      <artifactId>metrics-client</artifactId>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.google.code.findbugs</groupId>
+      <artifactId>jsr305</artifactId>
+      <scope>provided</scope>
     </dependency>
   </dependencies>
 </project>

@@ -27,7 +27,7 @@
 
   <properties>
     <!-- Findbugs -->
-    <findbugs.exclude>${project.basedir}/findbugs.exclude.xml</findbugs.exclude>
+    <spotbugs.exclude>${project.basedir}/findbugs.exclude.xml</spotbugs.exclude>
     <jacoco.check.line.coverage>0.9</jacoco.check.line.coverage>
     <jacoco.check.branch.coverage>0.9</jacoco.check.branch.coverage>
   </properties>
@@ -54,8 +54,8 @@
         <artifactId>maven-failsafe-plugin</artifactId>
       </plugin>
       <plugin>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>findbugs-maven-plugin</artifactId>
+        <groupId>com.github.spotbugs</groupId>
+        <artifactId>spotbugs-maven-plugin</artifactId>
       </plugin>
       <plugin>
         <groupId>org.jacoco</groupId>
@@ -90,8 +90,16 @@
       <artifactId>metrics-core</artifactId>
     </dependency>
     <dependency>
+      <groupId>com.arpnetworking.commons</groupId>
+      <artifactId>commons</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>com.github.spotbugs</groupId>
+      <artifactId>spotbugs-annotations</artifactId>
+    </dependency>
+    <dependency>
       <groupId>com.google.code.findbugs</groupId>
-      <artifactId>findbugs-annotations</artifactId>
+      <artifactId>jsr305</artifactId>
     </dependency>
     <dependency>
       <groupId>com.arpnetworking.metrics</groupId>
@@ -104,7 +112,7 @@
     <!-- Test - General -->
     <dependency>
       <groupId>org.hamcrest</groupId>
-      <artifactId>java-hamcrest</artifactId>
+      <artifactId>hamcrest</artifactId>
       <scope>test</scope>
     </dependency>
     <dependency>

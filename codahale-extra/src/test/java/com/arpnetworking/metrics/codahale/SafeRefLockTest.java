@@ -15,6 +15,7 @@
  */
 package com.arpnetworking.metrics.codahale;
 
+import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -32,9 +33,19 @@ import java.util.concurrent.locks.ReadWriteLock;
  * @author Brandon Arp (barp at groupon dot com)
  */
 public class SafeRefLockTest {
+
+    private AutoCloseable _mocks;
+
     @Before
     public void setUp() {
-        MockitoAnnotations.initMocks(this);
+        _mocks = MockitoAnnotations.openMocks(this);
+    }
+
+    @After
+    public void tearDown() throws Exception {
+        if (_mocks != null) {
+            _mocks.close();
+        }
     }
 
     @Test

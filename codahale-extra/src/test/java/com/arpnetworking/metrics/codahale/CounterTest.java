@@ -16,6 +16,7 @@
 package com.arpnetworking.metrics.codahale;
 
 import com.arpnetworking.metrics.Metrics;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;
@@ -32,16 +33,26 @@ import java.util.function.Consumer;
  * @author Brandon Arp (barp at groupon dot com)
  */
 public class CounterTest {
+
+    private AutoCloseable _mocks;
+
     @Before
     public void setUp() {
-        MockitoAnnotations.initMocks(this);
+        _mocks = MockitoAnnotations.openMocks(this);
+    }
+
+    @After
+    public void tearDown() throws Exception {
+        if (_mocks != null) {
+            _mocks.close();
+        }
     }
 
     @Test
     public void increment() {
         final Counter counter = new Counter("foo", _lock);
         counter.inc();
-        Mockito.verifyZeroInteractions(_metrics);
+        Mockito.verifyNoInteractions(_metrics);
         Mockito.verify(_lock).readLocked(_delegateCaptor.capture());
         _delegateCaptor.getValue().accept(_metrics);
         Mockito.verify(_metrics).incrementCounter("foo", 1);
@@ -52,7 +63,7 @@ public class CounterTest {
         final int n = 16;
         final Counter counter = new Counter("foo", _lock);
         counter.inc(n);
-        Mockito.verifyZeroInteractions(_metrics);
+        Mockito.verifyNoInteractions(_metrics);
         Mockito.verify(_lock).readLocked(_delegateCaptor.capture());
         _delegateCaptor.getValue().accept(_metrics);
         Mockito.verify(_metrics).incrementCounter("foo", n);
@@ -62,7 +73,7 @@ public class CounterTest {
     public void decrement() {
         final Counter counter = new Counter("foo", _lock);
         counter.dec();
-        Mockito.verifyZeroInteractions(_metrics);
+        Mockito.verifyNoInteractions(_metrics);
         Mockito.verify(_lock).readLocked(_delegateCaptor.capture());
         _delegateCaptor.getValue().accept(_metrics);
         Mockito.verify(_metrics).decrementCounter("foo", 1);
@@ -73,7 +84,7 @@ public class CounterTest {
         final int n = 16;
         final Counter counter = new Counter("foo", _lock);
         counter.dec(n);
-        Mockito.verifyZeroInteractions(_metrics);
+        Mockito.verifyNoInteractions(_metrics);
         Mockito.verify(_lock).readLocked(_delegateCaptor.capture());
         _delegateCaptor.getValue().accept(_metrics);
         Mockito.verify(_metrics).decrementCounter("foo", n);
