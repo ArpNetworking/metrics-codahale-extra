@@ -18,6 +18,7 @@ package com.arpnetworking.metrics.codahale;
 import com.arpnetworking.metrics.Metrics;
 import com.arpnetworking.metrics.Units;
 import com.codahale.metrics.Clock;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;
@@ -35,9 +36,19 @@ import java.util.function.Consumer;
  * @author Brandon Arp (barp at groupon dot com)
  */
 public class TimerTest {
+
+    private AutoCloseable _mocks;
+
     @Before
     public void setUp() {
-        MockitoAnnotations.initMocks(this);
+        _mocks = MockitoAnnotations.openMocks(this);
+    }
+
+    @After
+    public void tearDown() throws Exception {
+        if (_mocks != null) {
+            _mocks.close();
+        }
     }
 
     @SuppressWarnings("deprecation")
@@ -45,7 +56,7 @@ public class TimerTest {
     public void setTimer() {
         final Timer timer = new Timer("foo", _lock, Clock.defaultClock());
         timer.update(18, TimeUnit.MILLISECONDS);
-        Mockito.verifyZeroInteractions(_metrics);
+        Mockito.verifyNoInteractions(_metrics);
         Mockito.verify(_lock).readLocked(_delegateCaptor.capture());
         _delegateCaptor.getValue().accept(_metrics);
         Mockito.verify(_metrics).setTimer("foo", 18, Units.MILLISECOND);

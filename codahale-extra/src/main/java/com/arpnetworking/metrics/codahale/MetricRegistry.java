@@ -75,7 +75,7 @@ public class MetricRegistry extends com.codahale.metrics.MetricRegistry {
         _metricsFactory = metricsFactory;
         _openMetrics.set(_metricsFactory.create());
         _closingExecutor = Executors.newSingleThreadScheduledExecutor(
-                (r) -> {
+                r -> {
                     final Thread thread = new Thread(r, "metrics-closer");
                     thread.setDaemon(true);
                     return thread;
@@ -111,6 +111,11 @@ public class MetricRegistry extends com.codahale.metrics.MetricRegistry {
         return meter;
     }
 
+    /**
+     * Gets the current metrics factory.
+     *
+     * @return the current metrics factory
+     */
     public MetricsFactory getMetricsFactory() {
         return _metricsFactory;
     }
@@ -128,22 +133,22 @@ public class MetricRegistry extends com.codahale.metrics.MetricRegistry {
     private final SafeRefLock<Metrics> _lock = new SafeRefLock<>(_openMetrics, new ReentrantReadWriteLock(false));
 
     // These are Functions instead of Suppliers so that we don't have to close over them in the getOrCreate function
-    private final Function<String, Counter> _counterBuilder = (n) -> {
+    private final Function<String, Counter> _counterBuilder = n -> {
         final Counter counter = new Counter(n, _lock);
         register(n, counter);
         return counter;
     };
-    private final Function<String, Timer> _timerBuilder = (n) -> {
+    private final Function<String, Timer> _timerBuilder = n -> {
         final Timer timer = new Timer(n, _lock, Clock.defaultClock());
         register(n, timer);
         return timer;
     };
-    private final Function<String, Histogram> _histogramBuilder = (n) -> {
+    private final Function<String, Histogram> _histogramBuilder = n -> {
         final Histogram histogram = new Histogram(n, _lock, new ExponentiallyDecayingReservoir());
         register(n, histogram);
         return histogram;
     };
-    private final Function<String, Meter> _meterBuilder = (n) -> {
+    private final Function<String, Meter> _meterBuilder = n -> {
         final Meter meter = new Meter(n, _lock);
         register(n, meter);
         return meter;

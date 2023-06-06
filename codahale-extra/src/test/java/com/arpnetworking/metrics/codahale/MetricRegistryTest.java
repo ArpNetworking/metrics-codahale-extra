@@ -19,8 +19,10 @@ import com.arpnetworking.metrics.Metrics;
 import com.arpnetworking.metrics.MetricsFactory;
 import com.arpnetworking.metrics.impl.TsdMetricsFactory;
 import com.codahale.metrics.Gauge;
-
 import org.hamcrest.CoreMatchers;
+import org.hamcrest.MatcherAssert;
+import org.hamcrest.Matchers;
+import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -39,9 +41,19 @@ import java.util.function.Consumer;
  * @author Brandon Arp (barp at groupon dot com)
  */
 public class MetricRegistryTest {
+
+    private AutoCloseable _mocks;
+
     @Before
     public void setUp() {
-        MockitoAnnotations.initMocks(this);
+        _mocks = MockitoAnnotations.openMocks(this);
+    }
+
+    @After
+    public void tearDown() throws Exception {
+        if (_mocks != null) {
+            _mocks.close();
+        }
     }
 
     @Test
@@ -55,71 +67,71 @@ public class MetricRegistryTest {
     public void getDefaultMetricsfactory() {
         final MetricRegistry metricRegistry = new MetricRegistry();
         final MetricsFactory metricsFactory = metricRegistry.getMetricsFactory();
-        Assert.assertTrue(metricsFactory instanceof TsdMetricsFactory);
+        MatcherAssert.assertThat(metricsFactory, Matchers.instanceOf(TsdMetricsFactory.class));
     }
 
     @Test
     public void counter() {
         final MetricRegistry metricRegistry = new MetricRegistry();
         final com.codahale.metrics.Counter counter = metricRegistry.counter("foo");
-        Assert.assertThat(counter, CoreMatchers.instanceOf(Counter.class));
+        MatcherAssert.assertThat(counter, CoreMatchers.instanceOf(Counter.class));
     }
 
     @Test
     public void multipleCounter() {
         final MetricRegistry metricRegistry = new MetricRegistry();
         final com.codahale.metrics.Counter counter = metricRegistry.counter("foo");
-        Assert.assertThat(counter, CoreMatchers.instanceOf(Counter.class));
+        MatcherAssert.assertThat(counter, CoreMatchers.instanceOf(Counter.class));
         final com.codahale.metrics.Counter counter2 = metricRegistry.counter("foo");
-        Assert.assertThat(counter2, CoreMatchers.instanceOf(Counter.class));
+        MatcherAssert.assertThat(counter2, CoreMatchers.instanceOf(Counter.class));
     }
 
     @Test
     public void timer() {
         final MetricRegistry metricRegistry = new MetricRegistry();
         final com.codahale.metrics.Timer timer = metricRegistry.timer("foo");
-        Assert.assertThat(timer, CoreMatchers.instanceOf(Timer.class));
+        MatcherAssert.assertThat(timer, CoreMatchers.instanceOf(Timer.class));
     }
 
     @Test
     public void multipleTimer() {
         final MetricRegistry metricRegistry = new MetricRegistry();
         final com.codahale.metrics.Timer timer = metricRegistry.timer("foo");
-        Assert.assertThat(timer, CoreMatchers.instanceOf(Timer.class));
+        MatcherAssert.assertThat(timer, CoreMatchers.instanceOf(Timer.class));
         final com.codahale.metrics.Timer timer2 = metricRegistry.timer("foo");
-        Assert.assertThat(timer2, CoreMatchers.instanceOf(Timer.class));
+        MatcherAssert.assertThat(timer2, CoreMatchers.instanceOf(Timer.class));
     }
 
     @Test
     public void meter() {
         final MetricRegistry metricRegistry = new MetricRegistry();
         final com.codahale.metrics.Meter meter = metricRegistry.meter("foo");
-        Assert.assertThat(meter, CoreMatchers.instanceOf(Meter.class));
+        MatcherAssert.assertThat(meter, CoreMatchers.instanceOf(Meter.class));
     }
 
     @Test
     public void multipleMeter() {
         final MetricRegistry metricRegistry = new MetricRegistry();
         final com.codahale.metrics.Meter meter = metricRegistry.meter("foo");
-        Assert.assertThat(meter, CoreMatchers.instanceOf(Meter.class));
+        MatcherAssert.assertThat(meter, CoreMatchers.instanceOf(Meter.class));
         final com.codahale.metrics.Meter meter2 = metricRegistry.meter("foo");
-        Assert.assertThat(meter2, CoreMatchers.instanceOf(Meter.class));
+        MatcherAssert.assertThat(meter2, CoreMatchers.instanceOf(Meter.class));
     }
 
     @Test
     public void histogram() {
         final MetricRegistry metricRegistry = new MetricRegistry();
         final com.codahale.metrics.Histogram histogram = metricRegistry.histogram("foo");
-        Assert.assertThat(histogram, CoreMatchers.instanceOf(Histogram.class));
+        MatcherAssert.assertThat(histogram, CoreMatchers.instanceOf(Histogram.class));
     }
 
     @Test
     public void multipleHistogram() {
         final MetricRegistry metricRegistry = new MetricRegistry();
         final com.codahale.metrics.Histogram histogram = metricRegistry.histogram("foo");
-        Assert.assertThat(histogram, CoreMatchers.instanceOf(Histogram.class));
+        MatcherAssert.assertThat(histogram, CoreMatchers.instanceOf(Histogram.class));
         final com.codahale.metrics.Histogram histogram2 = metricRegistry.histogram("foo");
-        Assert.assertThat(histogram2, CoreMatchers.instanceOf(Histogram.class));
+        MatcherAssert.assertThat(histogram2, CoreMatchers.instanceOf(Histogram.class));
     }
 
     @Test
@@ -137,7 +149,7 @@ public class MetricRegistryTest {
         Mockito.when(_factory.create()).thenReturn(after);
 
         closer.run();
-        Mockito.verifyZeroInteractions(_factory);
+        Mockito.verifyNoInteractions(_factory);
         Mockito.verify(_lock).writeLocked(_callback.capture());
         Assert.assertSame(original, _reference.get());
         _callback.getValue().accept(original);
@@ -145,7 +157,7 @@ public class MetricRegistryTest {
         Mockito.verify(original).setGauge("some_gauge", 15d);
         Mockito.verify(original).close();
         Assert.assertSame(after, _reference.get());
-        Mockito.verifyZeroInteractions(after);
+        Mockito.verifyNoInteractions(after);
     }
 
     @Test
@@ -163,14 +175,14 @@ public class MetricRegistryTest {
         Mockito.when(_factory.create()).thenReturn(after);
 
         closer.run();
-        Mockito.verifyZeroInteractions(_factory);
+        Mockito.verifyNoInteractions(_factory);
         Mockito.verify(_lock).writeLocked(_callback.capture());
         Assert.assertSame(original, _reference.get());
         _callback.getValue().accept(original);
 
         Mockito.verify(original).close();
         Assert.assertSame(after, _reference.get());
-        Mockito.verifyZeroInteractions(after);
+        Mockito.verifyNoInteractions(after);
     }
 
     @Test
@@ -188,14 +200,14 @@ public class MetricRegistryTest {
         Mockito.when(_factory.create()).thenReturn(after);
 
         closer.run();
-        Mockito.verifyZeroInteractions(_factory);
+        Mockito.verifyNoInteractions(_factory);
         Mockito.verify(_lock).writeLocked(_callback.capture());
         Assert.assertSame(original, _reference.get());
         _callback.getValue().accept(original);
 
         Mockito.verify(original).close();
         Assert.assertSame(after, _reference.get());
-        Mockito.verifyZeroInteractions(after);
+        Mockito.verifyNoInteractions(after);
     }
 
     @Mock

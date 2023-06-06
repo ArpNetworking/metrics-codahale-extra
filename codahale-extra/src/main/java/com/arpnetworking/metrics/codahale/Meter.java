@@ -40,7 +40,7 @@ public class Meter extends com.codahale.metrics.Meter {
     public void mark(final long n) {
         super.mark(n);
         _lock.readLocked(
-                (metrics) -> {
+                metrics -> {
                     metrics.resetCounter(_name);
                     metrics.incrementCounter(_name, n);
                 });

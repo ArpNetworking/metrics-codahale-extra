@@ -16,6 +16,7 @@
 package com.arpnetworking.metrics.codahale;
 
 import com.arpnetworking.metrics.Metrics;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;
@@ -32,9 +33,19 @@ import java.util.function.Consumer;
  * @author Brandon Arp (barp at groupon dot com)
  */
 public class MeterTest {
+
+    private AutoCloseable _mocks;
+
     @Before
     public void setUp() {
-        MockitoAnnotations.initMocks(this);
+        _mocks = MockitoAnnotations.openMocks(this);
+    }
+
+    @After
+    public void tearDown() throws Exception {
+        if (_mocks != null) {
+            _mocks.close();
+        }
     }
 
     @Test
@@ -42,7 +53,7 @@ public class MeterTest {
         final Meter meter = new Meter("foo", _lock);
         final long n = 55;
         meter.mark(n);
-        Mockito.verifyZeroInteractions(_metrics);
+        Mockito.verifyNoInteractions(_metrics);
         Mockito.verify(_lock).readLocked(_delegateCaptor.capture());
         _delegateCaptor.getValue().accept(_metrics);
         Mockito.verify(_metrics).incrementCounter("foo", n);
@@ -52,7 +63,7 @@ public class MeterTest {
     public void update() {
         final Meter meter = new Meter("foo", _lock);
         meter.mark();
-        Mockito.verifyZeroInteractions(_metrics);
+        Mockito.verifyNoInteractions(_metrics);
         Mockito.verify(_lock).readLocked(_delegateCaptor.capture());
         _delegateCaptor.getValue().accept(_metrics);
         Mockito.verify(_metrics).incrementCounter("foo", 1);
