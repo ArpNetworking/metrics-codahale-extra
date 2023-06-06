@@ -16,7 +16,6 @@
 package com.arpnetworking.metrics.codahale;
 
 import com.arpnetworking.metrics.Metrics;
-import com.arpnetworking.metrics.Units;
 import com.codahale.metrics.Clock;
 import org.junit.After;
 import org.junit.Before;
@@ -59,7 +58,7 @@ public class TimerTest {
         Mockito.verifyNoInteractions(_metrics);
         Mockito.verify(_lock).readLocked(_delegateCaptor.capture());
         _delegateCaptor.getValue().accept(_metrics);
-        Mockito.verify(_metrics).setTimer("foo", 18, Units.MILLISECOND);
+        Mockito.verify(_metrics).setTimer("foo", 18, TimeUnit.MILLISECONDS);
     }
 
     @Test
