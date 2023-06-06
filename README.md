@@ -10,9 +10,9 @@ Codahale Extra
     <img src="https://img.shields.io/hexpm/l/plug.svg"
          alt="License: Apache 2">
 </a>
-<a href="https://travis-ci.org/ArpNetworking/metrics-codahale-extra/">
-    <img src="https://travis-ci.org/ArpNetworking/metrics-codahale-extra.png"
-         alt="Travis Build">
+<a href="https://build.arpnetworking.com/buildStatus/icon?job=ArpNetworking%2Fmetrics-codahale-extra%2Fmaster/">
+    <img src="https://build.arpnetworking.com/job/ArpNetworking/job/metrics-codahale-extra/job/master/badge/icon"
+         alt="Build Status">
 </a>
 <a href="http://search.maven.org/#search%7Cga%7C1%7Cg%3A%22com.arpnetworking.metrics.extras%22%20a%3A%22codahale-extra%22">
     <img src="https://img.shields.io/maven-central/v/com.arpnetworking.metrics.extras/codahale-extra.svg"
