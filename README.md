@@ -10,7 +10,7 @@ Codahale Extra
     <img src="https://img.shields.io/hexpm/l/plug.svg"
          alt="License: Apache 2">
 </a>
-<a href="https://build.arpnetworking.com/buildStatus/icon?job=ArpNetworking%2Fmetrics-codahale-extra%2Fmaster/">
+<a href="https://build.arpnetworking.com/job/ArpNetworking/job/metrics-codahale-extra/job/master/">
     <img src="https://build.arpnetworking.com/job/ArpNetworking/job/metrics-codahale-extra/job/master/badge/icon"
          alt="Build Status">
 </a>
