@@ -117,7 +117,7 @@
     <arpnet.commons.version>3.0.0</arpnet.commons.version>
 
     <!--Plugin versions-->
-    <maven.shade.plugin.version>3.4.1</maven.shade.plugin.version>
+    <maven.shade.plugin.version>3.5.0</maven.shade.plugin.version>
 
     <!-- Code Coverage -->
     <jacoco.check.line.coverage>1.0</jacoco.check.line.coverage>
