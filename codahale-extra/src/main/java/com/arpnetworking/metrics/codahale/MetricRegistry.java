@@ -47,7 +47,7 @@ import java.util.function.Function;
  * @author Brandon Arp (barp at groupon dot com)
  */
 @SuppressFBWarnings("NM_SAME_SIMPLE_NAME_AS_SUPERCLASS")
-public class MetricRegistry extends com.codahale.metrics.MetricRegistry {
+public final class MetricRegistry extends com.codahale.metrics.MetricRegistry {
 
     /**
      * Public constructor.
