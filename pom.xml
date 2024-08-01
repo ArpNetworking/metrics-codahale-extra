@@ -107,7 +107,7 @@
     <!--Dependency versions-->
     <dropwizard.metrics.version>4.2.26</dropwizard.metrics.version>
     <spotbugs.annotations.version>4.8.6</spotbugs.annotations.version>
-    <hamcrest.version>2.2</hamcrest.version>
+    <hamcrest.version>3.0</hamcrest.version>
     <jsr305.version>3.0.2</jsr305.version>
     <junit.version>4.13.2</junit.version>
     <metrics.client.version>0.13.0</metrics.client.version>
