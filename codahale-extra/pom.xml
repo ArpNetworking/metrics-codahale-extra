@@ -27,7 +27,6 @@
 
   <properties>
     <!-- Findbugs -->
-    <spotbugs.exclude>${project.basedir}/findbugs.exclude.xml</spotbugs.exclude>
     <jacoco.check.line.coverage>0.9</jacoco.check.line.coverage>
     <jacoco.check.branch.coverage>0.9</jacoco.check.branch.coverage>
   </properties>

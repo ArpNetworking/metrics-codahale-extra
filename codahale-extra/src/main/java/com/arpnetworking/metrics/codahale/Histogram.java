@@ -33,6 +33,7 @@ public class Histogram extends com.codahale.metrics.Histogram {
      * @param lock lock for the metrics reference
      * @param reservoir the reservoir to create a histogram from
      */
+    @SuppressFBWarnings(value = "EI_EXPOSE_REP2", justification = "exposed for interaction")
     public Histogram(final String name, final SafeRefLock<Metrics> lock, final Reservoir reservoir) {
         super(reservoir);
         _name = name;
