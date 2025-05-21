@@ -173,6 +173,7 @@ public final class MetricRegistry extends com.codahale.metrics.MetricRegistry {
          * @param metricsRef atomic reference to the open metrics instance
          * @param registry the registry to operate on
          */
+        @SuppressFBWarnings(value = "EI_EXPOSE_REP2", justification = "exposed for interaction")
         public Closer(
                 final SafeRefLock<Metrics> lock,
                 final MetricsFactory factory,

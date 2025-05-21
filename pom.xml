@@ -19,7 +19,7 @@
     <groupId>com.arpnetworking.build</groupId>
     <artifactId>arpnetworking-parent-pom</artifactId>
     <relativePath />
-    <version>3.3.6</version>
+    <version>3.3.8</version>
   </parent>
 
   <modelVersion>4.0.0</modelVersion>

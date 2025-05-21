@@ -31,6 +31,7 @@ public class Counter extends com.codahale.metrics.Counter {
      * @param name name of the metric
      * @param lock lock for the metrics reference
      */
+    @SuppressFBWarnings(value = "EI_EXPOSE_REP2", justification = "exposed for interaction")
     public Counter(final String name, final SafeRefLock<Metrics> lock) {
         _name = name;
         _lock = lock;

@@ -37,6 +37,7 @@ public class Timer extends com.codahale.metrics.Timer {
      * @param lock lock for the metrics reference
      * @param clock the clock to use for timing
      */
+    @SuppressFBWarnings(value = "EI_EXPOSE_REP2", justification = "exposed for interaction")
     public Timer(final String name, final SafeRefLock<Metrics> lock, final Clock clock) {
         _name = name;
         _lock = lock;

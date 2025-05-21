@@ -15,6 +15,8 @@
  */
 package com.arpnetworking.metrics.codahale;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReadWriteLock;
@@ -35,6 +37,7 @@ public class SafeRefLock<T> {
      * @param reference the reference to get
      * @param lock the lock protecting the reference
      */
+    @SuppressFBWarnings(value = "EI_EXPOSE_REP2", justification = "we coordinate on these")
     public SafeRefLock(final AtomicReference<T> reference, final ReadWriteLock lock) {
         _reference = reference;
         _lock = lock;
